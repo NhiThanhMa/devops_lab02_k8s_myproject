@@ -1,0 +1,46 @@
+{{ -range $name, $service := .Values.services}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels:
+    app: {{ $name }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  revisionHistoryLimit: 2
+  replicas: {{ $.service.replicas | default 1}}
+  selector:
+    matchLabels:
+      app: {{ $name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $name}}
+    spec:
+      {{ -if $service.dependOn}}
+      initContainer:
+        - name: init-conatiner-for-{{ $name }}
+          image: curlimages/curl:latest
+          command:
+            - sh
+            - -c
+            - >
+              until curl -I http://{{ $service.dependOn.name }}:{{ $service.dependOn.port }};
+              do echo "waiting for {{ $service.dependOn.name }}..."; sleep 5;
+              done
+      {{- end }}
+      containers:
+        - name: {{ $name }}
+          image: "{{ $service.dockerRepository | default $.Values.docker.repository }}/{{ $service.image.name }}:{{ $service.image.tag | default "latest" }}"
+          imagePullPolicy: "{{ $.Values.imagePullPolicy | default "Always"}}"
+          ports:
+            - containerPort: {{ $service.ports.targetPort | default 0 }}
+          {{- if $service.env }}
+          env:
+            {{- toYaml $service.env | nindent 12 }}
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: {{ $name }}
+          {{- end }}
+---
+{{- end }}
+    

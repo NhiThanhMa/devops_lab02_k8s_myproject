@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata:
+  name: {{ .Values.ingress.name }}
+  namespace: {{ Values.namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.namespace }}-{{ .Values.ingess.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix 
+            backend:
+              service:
+                name: {{ .Values.ingress.userServiceName }}
+                port:
+                  number: {{ .Values.ingress.userServicePort}}
+    - host: admin.{{ .Values.namespace }}-{{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.adminServiceName }}
+                port:
+                  number: {{ .Values.ingress.adminServicePort }}
+    - host: eureka.{{ .Values.namespace }}-{{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.eurekaServiceName }}
+                port:
+                  number: {{ .Values.ingress.eurekaServicePort }}

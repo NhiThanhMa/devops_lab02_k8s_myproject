@@ -1,0 +1,34 @@
+namespcae: dev
+
+services:
+  config-server:
+    image:
+      tag: latest
+
+  discovery-server:
+    image:
+      tag: latest
+
+  admin-server:
+    image:
+      tag: latest
+
+  customers-service:
+    image:
+      tag: latest
+
+  visits-service:
+    image:
+      tag: latest
+
+  vets-service:
+    image:
+      tag: latest
+
+  genai-service:
+    image:
+      tag: latest
+
+  api-gateway:
+    image:
+      tag: latest
