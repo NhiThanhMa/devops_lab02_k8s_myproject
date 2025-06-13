@@ -1,5 +1,5 @@
 namespace: default
-imagePullPolicy: Always
+imagePullPolicy: IfNotPresent
 
 docker:
   repository: nhi256
