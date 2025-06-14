@@ -1,4 +1,4 @@
-namespcae: dev
+namespace: dev
 
 services:
   config-server:
