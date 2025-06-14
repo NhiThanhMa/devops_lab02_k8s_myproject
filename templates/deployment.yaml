@@ -8,17 +8,17 @@ metadata:
   namespace: {{ $.Values.namespace }}
 spec:
   revisionHistoryLimit: 2
-  replicas: {{ $service.replicas | default 1}}
+  replicas: {{ $service.replicas | default 1 }}
   selector:
     matchLabels:
       app: {{ $name }}
   template:
     metadata:
       labels:
-        app: {{ $name}}
+        app: {{ $name }}
     spec:
-      {{- if $service.dependOn}}
-      initContainer:
+      {{- if $service.dependOn }}
+      initContainers:
         - name: init-conatiner-for-{{ $name }}
           image: curlimages/curl:latest
           command:
