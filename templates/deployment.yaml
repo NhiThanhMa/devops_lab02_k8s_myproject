@@ -17,7 +17,7 @@ spec:
       labels:
         app: {{ $name}}
     spec:
-      {{ -if $service.dependOn}}
+      {{- if $service.dependOn}}
       initContainer:
         - name: init-conatiner-for-{{ $name }}
           image: curlimages/curl:latest
