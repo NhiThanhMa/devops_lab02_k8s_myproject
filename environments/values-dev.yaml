@@ -3,32 +3,32 @@ namespcae: dev
 services:
   config-server:
     image:
-      tag: 90f94c9
+      tag: a5c567b
 
   discovery-server:
     image:
-      tag: 90f94c9
+      tag: a5c567b
 
   admin-server:
     image:
-      tag: 90f94c9
+      tag: a5c567b
 
   customers-service:
     image:
-      tag: 90f94c9
+      tag: a5c567b
 
   visits-service:
     image:
-      tag: 90f94c9
+      tag: a5c567b
 
   vets-service:
     image:
-      tag: 90f94c9
+      tag: a5c567b
 
   genai-service:
     image:
-      tag: 90f94c9
+      tag: a5c567b
 
   api-gateway:
     image:
-      tag: 90f94c9
+      tag: a5c567b
